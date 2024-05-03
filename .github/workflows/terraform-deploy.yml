@@ -9,23 +9,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@main
+      uses: actions/checkout@master
     - name: "Terraform Plan"
-      uses: hashicorp/terraform-github-actions@main
+      uses: hashicorp/terraform-github-actions@master
       with: 
         tf_actions_version: latest
         tf_actions_subcommand: "plan"
         tf_actions_working_dir: "./terraform"
         tf_actions_comment: true
     - name: "Terraform Init"
-      uses: hashicorp/terraform-github-actions@main
+      uses: hashicorp/terraform-github-actions@master
       with:
         tf_actions_version: latest
         tf_actions_subcommand: "init"
         tf_actions_working_dir: "./terraform"
         tf_actions_comment: true
     - name: "Terraform Validate"
-      uses: hashicorp/terraform-github-actions@main
+      uses: hashicorp/terraform-github-actions@master
       with:
         tf_actions_version: latest
         tf_actions_subcommand: "validate"
