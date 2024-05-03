@@ -1,5 +1,4 @@
 name: Terraform DB-Workflow Deploy
-
 on:
   push:
     branches:
@@ -17,6 +16,7 @@ jobs:
         tf_actions_subcommand: "plan"
         tf_actions_working_dir: "./terraform"
         tf_actions_comment: true
+        tf_actions_init_args: "-backend-config=environment_definition.tfvars"
     - name: "Terraform Init"
       uses: hashicorp/terraform-github-actions@master
       with:
