@@ -5,7 +5,7 @@ provider "azurerm" {
 
 # Load variables from terraform.tfvars file
 terraform {
-  required_version = ">= 0.13"
+  required_version = "latest" #">= 0.13"
 }
 
 # Define variables
@@ -18,7 +18,7 @@ variable "storage_account_tier" {}
 
 # Load variables from terraform.tfvars file
 terraform {
-  required_version = ">= 0.13"
+  required_version = "latest" #">= 0.13"
   required_providers {
     azurerm = {
       source = "hashicorp/azurerm"
