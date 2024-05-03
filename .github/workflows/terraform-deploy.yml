@@ -7,9 +7,6 @@ jobs:
   terraform:
     runs-on: ubuntu-latest
     steps:
-    - run:
-      shell: bash
-      working-directory: "./terraform"
     - run: echo "The name of the branch is ${{ github.ref }} and repository is ${{ github.repository }}."
     - run: terraform plan -var-file="environment_definition.tfvars"
     - name: Checkout Repository
@@ -45,6 +42,7 @@ jobs:
         tf_actions_subcommand: "plan"
         tf_actions_working_dir: "./terraform"
         tf_actions_comment: true
+        tf_actions_varfiles: "environment_definition.tfvars"
       env:
         creds: '${{ secrets.AZURE_CREDENTIALS }}'
     - name: Terraform Apply
