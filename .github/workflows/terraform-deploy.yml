@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: echo "The name of the branch is ${{ github.ref }} and repository is ${{ github.repository }}."
+    - run: terraform plan -var-file="environment_definition.tfvars"
     - name: Checkout Repository
       uses: actions/checkout@master
     # - name: Format Terraform files
@@ -39,7 +40,6 @@ jobs:
       with:
         tf_actions_version: 1.8.0
         tf_actions_subcommand: "plan"
-        run: terraform plan -var-file="environment_definition.tfvars"
         tf_actions_working_dir: "./terraform"
         tf_actions_comment: true
       env:
