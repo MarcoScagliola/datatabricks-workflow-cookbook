@@ -16,6 +16,7 @@ variable "db_workspace_name_sku" {}
 variable "adls_gen2_account_name" {}
 variable "storage_account_tier" {}
 
+
 # Load variables from terraform.tfvars file
 terraform {
   required_version = "= 1.8.0"
