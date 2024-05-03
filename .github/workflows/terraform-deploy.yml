@@ -4,44 +4,48 @@ on:
   push:
     branches:
       - main
-
 jobs:
   terraform:
     runs-on: ubuntu-latest
-
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@main
+    - name: "Terraform Plan"
+      uses: hashicorp/terraform-github-actions@main
+      with: 
+        tf_actions_version: latest
+        tf_actions_subcommand: "plan"
+        tf_actions_working_dir: "./terraform"
+        tf_actions_comment: true
+    - name: "Terraform Init"
+      uses: hashicorp/terraform-github-actions@main
       with:
-        path: main
-
-    - name: Install Terraform
-      uses: hashicorp/setup-terraform@v1
+        tf_actions_version: latest
+        tf_actions_subcommand: "init"
+        tf_actions_working_dir: "./terraform"
+        tf_actions_comment: true
+    - name: "Terraform Validate"
+      uses: hashicorp/terraform-github-actions@main
       with:
-        terraform_version: 1.0.0
-
-    - name: Decode Azure Credentials
-      run: echo "${{ secrets.AZURE_CREDENTIALS }}" > azure_creds.json
-
-    - name: Set up Azure CLI
-      uses: azure/CLI@v1
+        tf_actions_version: latest
+        tf_actions_subcommand: "validate"
+        tf_actions_working_dir: "./terraform"
+        tf_actions_comment: true
+    - name: "Terraform Plan"
+      uses: hashicorp/terraform-github-actions@master
       with:
-        azcliversion: latest
-        inlineScript: |
-          # Add your Azure CLI commands here
-          # For example:
-          az login --service-principal -u ${{fromJson(secrets.AZURE_CREDENTIALS).clientId}} -p ${{fromJson(secrets.AZURE_CREDENTIALS).clientSecret}} --tenant ${{fromJson(secrets.AZURE_CREDENTIALS).tenantId}}
-      
-    - name: Terraform Init
-      run: terraform init
-
-    - name: Terraform Plan
-      run: terraform plan -var-file=./scripts/environment_definition.tfvars
-
-    - name: Terraform Apply
-      run: terraform apply -auto-approve -var-file=./scripts/environment_definition.tfvars
+        tf_actions_version: latest
+        tf_actions_subcommand: "plan"
+        tf_actions_working_dir: "./terraform"
+        tf_actions_comment: true
       env:
-        ARM_CLIENT_ID: ${{fromJson(secrets.AZURE_CREDENTIALS).clientId}}
-        ARM_CLIENT_SECRET: ${{fromJson(secrets.AZURE_CREDENTIALS).clientSecret}}
-        ARM_SUBSCRIPTION_ID: ${{fromJson(secrets.AZURE_CREDENTIALS).subscriptionId}}
-        ARM_TENANT_ID: ${{fromJson(secrets.AZURE_CREDENTIALS).tenantId}}
+        creds: '${{ secrets.AZURE_CREDENTIALS }}'
+    - name: "Terraform Apply"
+      uses: hashicorp/terraform-github-actions@master
+      with:
+        tf_actions_version: 0.12.13
+        tf_actions_subcommand: "apply"
+        tf_actions_working_dir: "./terraform"
+        tf_actions_comment: true
+      env:
+        creds: '${{ secrets.AZURE_CREDENTIALS }}'
