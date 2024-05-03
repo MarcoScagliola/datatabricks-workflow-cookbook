@@ -6,6 +6,10 @@ on:
 jobs:
   terraform:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./terraform
     steps:
     - run: echo "The name of the branch is ${{ github.ref }} and repository is ${{ github.repository }}."
     - run: terraform plan -var-file="./terraform/environment_definition.tfvars"
