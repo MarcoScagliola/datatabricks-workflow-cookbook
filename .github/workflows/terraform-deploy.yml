@@ -10,11 +10,11 @@ jobs:
     - run: echo "The name of the branch is ${{ github.ref }} and repository is ${{ github.repository }}."
     - name: Checkout Repository
       uses: actions/checkout@master
-    - name: "Terraform Plan"
+    - name: "Terraform Format"
       uses: hashicorp/terraform-github-actions@master
       with: 
         tf_actions_version: 1.8.0
-        tf_actions_subcommand: "plan"
+        tf_actions_subcommand: "fmt"
         tf_actions_working_dir: "./terraform"
         tf_actions_comment: true
         tf_actions_init_args: "-backend-config=environment_definition.tfvars"
