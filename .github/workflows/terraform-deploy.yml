@@ -12,6 +12,8 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
+      with:
+        path: main
 
     - name: Install Terraform
       uses: hashicorp/setup-terraform@v1
