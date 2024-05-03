@@ -39,6 +39,7 @@ jobs:
       with:
         tf_actions_version: 1.8.0
         tf_actions_subcommand: "plan"
+        run: terraform plan -var-file="environment_definition.tfvars"
         tf_actions_working_dir: "./terraform"
         tf_actions_comment: true
       env:
