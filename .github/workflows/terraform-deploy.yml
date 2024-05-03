@@ -10,8 +10,8 @@ jobs:
     - run: echo "The name of the branch is ${{ github.ref }} and repository is ${{ github.repository }}."
     - name: Checkout Repository
       uses: actions/checkout@master
-    # - name: Format Terraform files
-    #   run: terraform fmt -check=true -recursive ./terraform
+    - name: Format Terraform files
+      run: terraform fmt -check=true -recursive ./terraform
     #   working-directory: ./terraform
     # - name: Terraform Format
     #   uses: hashicorp/terraform-github-actions@master
