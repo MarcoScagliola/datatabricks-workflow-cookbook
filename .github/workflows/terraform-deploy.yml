@@ -24,7 +24,11 @@ jobs:
       uses: azure/CLI@v1
       with:
         azcliversion: latest
-
+        inlineScript: |
+          # Add your Azure CLI commands here
+          # For example:
+          az login --service-principal -u ${{fromJson(secrets.AZURE_CREDENTIALS).clientId}} -p ${{fromJson(secrets.AZURE_CREDENTIALS).clientSecret}} --tenant ${{fromJson(secrets.AZURE_CREDENTIALS).tenantId}}
+      
     - name: Decode Azure Credentials
       run: echo "${{ secrets.AZURE_CREDENTIALS }}" > azure_creds.json
 
