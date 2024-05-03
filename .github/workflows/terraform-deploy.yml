@@ -43,7 +43,7 @@ jobs:
         tf_actions_comment: true
       env:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-        args: -var-file="environment_definition.tfvars"
+        run: terraform plan -var-file="environment_definition.tfvars"
     - name: Terraform Apply
       uses: hashicorp/terraform-github-actions@master
       with:
