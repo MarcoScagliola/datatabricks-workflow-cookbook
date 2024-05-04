@@ -12,14 +12,13 @@ jobs:
       uses: actions/checkout@master
     - name: Format Terraform files
       run: terraform fmt -check=true -recursive ./terraform
-    #   working-directory: ./terraform
-    # - name: Terraform Format
-    #   uses: hashicorp/terraform-github-actions@master
-    #   with: 
-    #     tf_actions_version: 1.8.0
-    #     tf_actions_subcommand: "fmt"
-    #     tf_actions_working_dir: "./terraform"
-    #     tf_actions_comment: true
+    - name: Terraform Format
+      uses: hashicorp/terraform-github-actions@master
+      with: 
+        tf_actions_version: 1.8.0
+        tf_actions_subcommand: "fmt"
+        tf_actions_working_dir: "./terraform"
+        tf_actions_comment: true
     - name: Terraform Init
       uses: hashicorp/terraform-github-actions@master
       with:
@@ -51,6 +50,6 @@ jobs:
         tf_actions_subcommand: "apply"
         tf_actions_working_dir: "./terraform"
         tf_actions_comment: true
-        tf_actions_varfiles: "environment_definition.tfvars"
       env:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
+        run: terraform plan -var-file="environment_definition.tfvars"
